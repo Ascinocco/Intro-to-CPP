@@ -1,0 +1,3 @@
+/Users/anthonyscinocco/Documents/School/Georgian/COPA/Year Three/Semester Two/Classes/Intro to C++/Week 1/code/helloWorld-clion/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/anthonyscinocco/Documents/School/Georgian/COPA/Year Three/Semester Two/Classes/Intro to C++/Week 1/code/helloWorld-clion/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/anthonyscinocco/Documents/School/Georgian/COPA/Year Three/Semester Two/Classes/Intro to C++/Week 1/code/helloWorld-clion/cmake-build-debug/CMakeFiles/helloWorld_clion.dir

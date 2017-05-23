@@ -1,38 +1,40 @@
 #include <iostream>
-#include "./Controllers/BiNomial.hpp"
+#include "./Models/PascalTriangle.hpp"
 
 using namespace std;
 
 void takeInput()
 {
     bool keepGoing = true;
-    int value;
-
     while (keepGoing)
     {
-        cout << "Enter an exponent from 0 to 10: " << endl;
-        cin >> value;
+        int choice;
+        cout << "Enter the number of rows desired (1 - 10): " << endl;
+        cin >> choice;
 
-        if (value >= 0 && value <= 10)
-        {
-            BiNomial myBiNomial;
-            int result = myBiNomial.numExponents(value);
-            myBiNomial.display(result);
-        } else if (value == 12)
+        if (choice == 11)
         {
             keepGoing = false;
         } else 
         {
-            cout << "NUMBER MUST BE FROM 1 TO 10!!!" << endl;
+            PascalTriangle myTriangle;
+            bool isValidChoice = myTriangle.setNumOfRows(choice);
+            
+            if (isValidChoice == false)
+            {
+                takeInput();
+            }
+
+            myTriangle.display();
+
         }
     }
 }
 
 int main()
 {
-    cout << "----------------------------------" << endl;
-    cout << "Enter '12' to exit the program" << endl;
+    cout << "-----------------------------------------------" << endl;
+    cout << "Enter 11 to exit!" << endl;
     takeInput();
-    cout << "Goodbye!" << endl;
-    return 1;
+    return 0;
 }

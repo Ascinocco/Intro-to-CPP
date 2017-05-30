@@ -1,10 +1,4 @@
-#include <iostream>
-#include <stdlib.h>
-#include <sstream>
-#include <string>
-#include <regex>
-#include "./Models/PascalTriangle.hpp"
-#include "./Models/BiNomialExpansion.hpp"
+#include "./loader.hpp"
 
 using namespace std;
 

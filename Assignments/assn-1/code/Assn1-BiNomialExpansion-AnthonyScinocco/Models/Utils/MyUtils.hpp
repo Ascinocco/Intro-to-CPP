@@ -6,11 +6,6 @@
 
  // I might move this to separate wrapper classes for primitive
  // types to allow myself more flexibility
-
-#include <iostream>
-#include <sstream>
-#include <string>
-
 using namespace std;
 
 class MyUtils

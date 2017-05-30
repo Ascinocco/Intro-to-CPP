@@ -49,10 +49,16 @@ void takeEquationExpansionInput()
         cout << "Enter your equation: " << endl;
         cin >> choice;
 
-        BiNomialExpansion myBiExpansion;
-        // myBiExpansion.parseEqn(choice);
-        myBiExpansion.expand();
-        myBiExpansion.display();
+        BiNomialExpansion biExp;
+
+        biExp.parse("(3x-2y)^5");
+        biExp.expand();
+        biExp.display();
+
+        // BiNomialExpansion myBiExpansion;
+        // // myBiExpansion.parseEqn(choice);
+        // myBiExpansion.expand();
+        // myBiExpansion.display();
 
         // if (choice.compare("~") == 0)
         // {

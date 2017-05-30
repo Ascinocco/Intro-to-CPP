@@ -1,204 +1,116 @@
+#include <stdlib.h>
 #include <iostream>
 #include <sstream>
 #include <string>
+#include "./Utils/MyUtils.hpp"
 
 using namespace std;
 
-// this code got really out of hand but I do not have the time to
-// make it better
 class BiNomialExpansion
 {
     private:
-        string expandedEqn;
-        string baseEqn;
-        string biNomialFactorOne;
-        string biNomialFactorTwo;
-        string eqnExponent;
-        string eqnOperator;
-    
+        string expandedEqn; // eqn in fully expanded form
+        string baseEqn; // base equation input
+        
+        string a; // value of a
+        string b; // value of b
+        string nString; // string representation of n
+        double nDouble; // double representation of n
+
+        string op; // oprator
+
     public:
-        bool parseEqn(string eqn)
-        {
-            eqn = eqn + ","; // added comma to the end of the equation for ease of find the end
-            string symbols [4] = { "+", "-", "*", "/" };
-            int symbolsLength = sizeof(symbols)/sizeof(symbols[0]);
-            char openParenthesis = '(';
-            char closeParenthesis = ')';
-            char exponent = '^';
-            char comma = ',';
-            string eqnOperator;
+        void parse(string eqn)
+        {        
+            init();
+            // save copy of base eqn
+            baseEqn = eqn;
 
-            string eqnExponent;
-            string biNomialFactorOne;
-            string biNomialFactorTwo;
+            string symbols [2]  = { "+", "-" }; // operators
+            string openParen    = "(";
+            string closeParen   = ")";
+            string caret        = "^";
+            string comma        = ",";
 
-            // find operator between binomial expressions
-            for (int i = 0; i < symbolsLength; i++)
+            eqn = eqn + ","; // comma for easy delimitation
+
+            for (int i = 0; i < sizeof(symbols)/sizeof(symbols[0]); i++)
             {
                 if (eqn.find(symbols[i]))
                 {
-                    eqnOperator = " " + symbols[i] + " ";
+                    op = symbols[i];
                 }
             }
-            
-            this->setEqnOperator(eqnOperator);
 
-            // find expression between open parenthesis and operator
-            unsigned openParenNum = eqn.find(openParenthesis);
-            unsigned eqnOperatorNum = eqn.find(eqnOperator);
+            // find the positions of each special character in the 
+            // equation and then extrapolate the values
+            unsigned OPNum   = eqn.find(openParen);
+            unsigned CPNum   = eqn.find(closeParen); 
+            unsigned operNum = eqn.find(op);
+            unsigned cNum    = eqn.find(caret);
+            unsigned comNum  = eqn.find(comma);
 
-            biNomialFactorOne = eqn.substr(openParenNum, eqnOperatorNum - openParenNum);
-
-            unsigned closeParenNum = eqn.find(closeParenthesis);
-
-            biNomialFactorTwo = eqn.substr(eqnOperatorNum, closeParenthesis - eqnOperatorNum);
-
-            unsigned eqnExponentNum = eqn.find(exponent);
-            unsigned endEqnCommaNum = eqn.find(comma);
-
-            eqnExponent = eqn.substr(eqnExponentNum, endEqnCommaNum - eqnExponentNum);
-
-            this->setBiNomialFactorOne(biNomialFactorOne);
-            this->setBiNomialFactorTwo(biNomialFactorTwo);
-            this->setEqnExponent(eqnExponent);
-            this->setEqnOperator(eqnOperator);
-
-            string builtEqn = this->buildBaseEqn();
-            this->setBaseEqn(builtEqn);
-
-            return true;
+            // a little guess work to get the desired character positions
+            a = eqn.substr((OPNum + 1), (operNum - 1) - OPNum);
+            b = eqn.substr((operNum + 1), (CPNum - 1 ) - operNum);
+            nString = eqn.substr((cNum + 1), (comNum - 1) - cNum);
+            nDouble = atof(nString.c_str());
         }
 
         void expand()
         {
-            string a = "3x";
-            string b = "-4y";
-            double n = 5;
-            string nString = this->doubleToString(n);
+            expandedEqn = a + "^" + nString + " + " + nString;
+            expandedEqn += " * ";
 
-            string eqn = "(" + a + b + ")^" + nString;
-            eqn = eqn + "=" + a + "+" + nString + "*";
-
-
-            for (int i = 1; i <= n; i++)
+            for (int i = 1; i < nDouble; i++)
             {
-                int iPlusOne = i + 1;
-                string iPlusOneString = this->intToString(iPlusOne);
-                string iString = this->intToString(i);
-                string numerator = this->generateNumerators(i);
+                string iString = MyUtils::toString(i);
+                expandedEqn += a + "^(" + nString + " - " + iString + ") ";
+                expandedEqn += op + " " + b + " + ";
 
-                eqn = eqn + a + "^" + nString + "-" + iString;
-                eqn = eqn + b + "+" + numerator + "/" + iPlusOneString + "!";
+                string numerator = buildNumerator(i);
+                string denom = buildDenominator(i);
+
+                expandedEqn += "[ " + numerator + " / " + denom + " ] ";
             }
 
-            eqn = eqn + "+" + b + "^" + nString;
-            
-            cout << eqn << endl;
-
+            expandedEqn += b + "^" + nString;
         }
 
-        string generateNumerators(double n)// n here is not representative of n in the equation
+        void display()
         {
-            string nString = this->doubleToString(n);
-            string numerator = nString;
+            cout << baseEqn + " = " << endl;
+            cout <<  "\t" << expandedEqn << endl;
+        }
 
-            for (int i = 1; i < n; i++)
+        string buildNumerator(int i)
+        {
+            string numerator = nString + " ";
+
+            for (int x = 1; x <= i; x++)
             {
-                string iString = this->intToString(i);
-                numerator = numerator + "(" + nString + "-" + iString + ")";
+                string xString = MyUtils::toString(x);
+                numerator += "(" + nString + " - " + xString + ")";
             }
 
             return numerator;
         }
 
-        void display()
+        string buildDenominator(int i)
         {
-
+            i++;
+            string denom = MyUtils::toString(i);
+            denom += "!";
+            return denom;
         }
 
-        string doubleToString(double dbl)
+        void init()
         {
-            ostringstream strs;
-            strs << dbl;
-            string str = strs.str();
-            return str;
-        }
-
-        string intToString(int num)
-        {
-            ostringstream strs;
-            strs << num;
-            string str = strs.str();
-            return str;
-        }
-
-        string getExpandedEqn()
-        {
-            return expandedEqn;
-        }
-
-        string buildBaseEqn()
-        {
-            string openBrace = "( ";
-            string biFacOne = this->getBiNomialFactorOne();
-            string eqnOp = this->getEqnOperator();
-            string biFacTwo = this->getBiNomialFactorTwo();
-            string closeAndCaret = " )^";
-            string expo = this->getEqnExp();
-
-            string eqn = openBrace + biFacOne + eqnOp +
-                         biFacTwo + closeAndCaret + expo;
-
-            return eqn;
-        }
-
-        void setBaseEqn(string eqn)
-        {
-            baseEqn = eqn;
-        }
-
-        void setEqnOperator(string myOperator)
-        {
-            eqnOperator = myOperator;
-        }
-
-        void setBiNomialFactorOne(string factor)
-        {
-            biNomialFactorOne = factor;
-        }
-
-        void setBiNomialFactorTwo(string factor)
-        {
-            biNomialFactorTwo = factor;
-        }
-
-        void setEqnExponent(string myExp)
-        {
-            eqnExponent = myExp;
-        }
-
-        void setExpandedEquation(string expEqn)
-        {
-            expandedEqn = expEqn;
-        }
-
-        string getBiNomialFactorOne()
-        {
-            return biNomialFactorOne;
-        }
-
-        string getBiNomialFactorTwo()
-        {
-            return biNomialFactorTwo;
-        }
-
-        string getEqnExp()
-        {
-            return eqnExponent;
-        }
-
-        string getEqnOperator()
-        {
-            return eqnOperator;
+            expandedEqn = ""; // eqn in fully expanded form
+            baseEqn = ""; // base equation input
+            a = ""; // value of a
+            b = ""; // value of b
+            nString = ""; // string representation of n
+            nDouble = 0; // double representation of n
         }
 };

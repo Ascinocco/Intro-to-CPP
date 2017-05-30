@@ -19,6 +19,37 @@ class BiNomialExpansion
 
         string op; // oprator
 
+        string buildNumerator(int i)
+        {
+            string numerator = nString + " ";
+
+            for (int x = 1; x <= i; x++)
+            {
+                string xString = MyUtils::toString(x);
+                numerator += "(" + nString + " - " + xString + ")";
+            }
+
+            return numerator;
+        }
+
+        string buildDenominator(int i)
+        {
+            i++;
+            string denom = MyUtils::toString(i);
+            denom += "!";
+            return denom;
+        }
+
+        void init()
+        {
+            expandedEqn = ""; // eqn in fully expanded form
+            baseEqn = ""; // base equation input
+            a = ""; // value of a
+            b = ""; // value of b
+            nString = ""; // string representation of n
+            nDouble = 0; // double representation of n
+        }
+
     public:
         void parse(string eqn)
         {        
@@ -83,34 +114,5 @@ class BiNomialExpansion
             cout <<  "\t" << expandedEqn << endl;
         }
 
-        string buildNumerator(int i)
-        {
-            string numerator = nString + " ";
-
-            for (int x = 1; x <= i; x++)
-            {
-                string xString = MyUtils::toString(x);
-                numerator += "(" + nString + " - " + xString + ")";
-            }
-
-            return numerator;
-        }
-
-        string buildDenominator(int i)
-        {
-            i++;
-            string denom = MyUtils::toString(i);
-            denom += "!";
-            return denom;
-        }
-
-        void init()
-        {
-            expandedEqn = ""; // eqn in fully expanded form
-            baseEqn = ""; // base equation input
-            a = ""; // value of a
-            b = ""; // value of b
-            nString = ""; // string representation of n
-            nDouble = 0; // double representation of n
-        }
+       
 };

@@ -1,4 +1,8 @@
 #include <iostream>
+#include <stdlib.h>
+#include <sstream>
+#include <string>
+#include <regex>
 #include "./Models/PascalTriangle.hpp"
 #include "./Models/BiNomialExpansion.hpp"
 
@@ -44,33 +48,26 @@ void takeEquationExpansionInput()
         cout << "-----------------------------------------------" << endl;
         cout << "Enter ~ to exit!" << endl;
         cout << "-----------------------------------------------" << endl;
+        cout << "DO NOT ENTER WHITE SPACE...SORRY...IT BREAKS EVERYTHING AND STRIPING THE WHITE SPACE DOESN'T FIX IT :(" << endl;
+        cout << "-----------------------------------------------" << endl;
 
         string choice;
         cout << "Enter your equation: " << endl;
         cin >> choice;
 
-        BiNomialExpansion biExp;
+        // remove all the white space so that I can sleep at night
+        // choice.erase( remove_if( choice.begin(), choice.end(), ::isspace ), choice.end());
 
-        biExp.parse("(3x-2y)^5");
-        biExp.expand();
-        biExp.display();
-
-        // BiNomialExpansion myBiExpansion;
-        // // myBiExpansion.parseEqn(choice);
-        // myBiExpansion.expand();
-        // myBiExpansion.display();
-
-        // if (choice.compare("~") == 0)
-        // {
-        //     keepGoing = false;
-        // } else
-        // {
-        //     BiNomialExpansion myBiExpansion;
-        //     myBiExpansion.parseEqn(choice);
-        //     myBiExpansion.expand();
-        //     myBiExpansion.display();
-
-        // }
+        if (choice.compare("~") == 0)
+        {
+            keepGoing = false;
+        } else
+        {
+            BiNomialExpansion biExp;
+            biExp.parse(choice);
+            biExp.expand();
+            biExp.display();
+        }
     }
 }
 

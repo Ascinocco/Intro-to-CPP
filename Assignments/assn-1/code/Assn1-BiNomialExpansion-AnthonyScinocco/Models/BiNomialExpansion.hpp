@@ -107,6 +107,4 @@ class BiNomialExpansion
             cout << baseEqn + " = " << endl;
             cout <<  "\t" << expandedEqn << endl;
         }
-
-       
 };

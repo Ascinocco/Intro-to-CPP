@@ -54,7 +54,7 @@ void optionOneHandler(Ira ira)
     cout << "Enter the following values: " << endl;
     cout << "mL/Hr: " << endl;
     cin >> MLPerHour;
-    cout >> "Drops/mL: " << endl;
+    cout << "Drops/mL: " << endl;
     cin >> dropsPerML;
     ira.optionOneCalculator(MLPerHour, dropsPerML);
 }
@@ -88,7 +88,7 @@ void optionFourHandler(Ira ira)
     cout << "Units/Hr: " << endl;
     cin >> uPerHr;
     cout << "Units/mL: " << endl;
-    cin uPerMl;
+    cin >> uPerMl;
     ira.optionFourCalculator(uPerHr, uPerMl);
 }
 

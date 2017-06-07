@@ -22,19 +22,33 @@ class Ira
             cout << "\n" << endl;
         }
 
-        void optionTwoCalculator()
+        void optionTwoCalculator(double hrs)
         {
-
+            double mlPerHour = (1 / hrs) * 1000;
+            cout << "----------------------------------------" << endl;
+            cout << "The rate in ML per hour is: " << endl;
+            display(mlPerHour);
+            cout << "----------------------------------------" << endl;
+            cout << "\n" << endl;
         }
 
-        void optionThreeCalculator()
+        void optionThreeCalculator(double mgKgHr, double wKg, double mgMl)
         {
-
+            double mlPerHour = (mgKgHr * wKg) * mgMl;
+            cout << "----------------------------------------" << endl;
+            cout << "The rate in ML per hour is: " << endl;
+            display(mlPerHour);
+            cout << "----------------------------------------" << endl;
+            cout << "\n" << endl;
         }
 
-        void optionFourCalculator()
+        void optionFourCalculator(double uPerHr, double uPerMl)
         {
-
+            double mlPerHour = (uPerHr / uPerMl);
+            cout << "----------------------------------------" << endl;
+            cout << "The rate in ML per hour is: " << endl;
+            display(mlPerHour);
+            cout << "----------------------------------------" << endl;
+            cout << "\n" << endl;
         }
-
 };

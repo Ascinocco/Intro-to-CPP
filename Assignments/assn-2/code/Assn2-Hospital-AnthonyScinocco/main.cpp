@@ -54,8 +54,8 @@ void optionOneHandler(Ira ira)
            dropsPerML; 
     // get user input
 
-    MLPerHour = 5;
-    dropsPerML = 20;
+    MLPerHour = 150;
+    dropsPerML = 15;
 
     // pass to calculator
     ira.optionOneCalculator(MLPerHour, dropsPerML);
@@ -63,17 +63,31 @@ void optionOneHandler(Ira ira)
 
 void optionTwoHandler(Ira ira)
 {
-    ira.optionTwoCalculator();
+    double hrs;
+    hrs = 8;
+    ira.optionTwoCalculator(hrs);
 }
 
 void optionThreeHandler(Ira ira)
 {
-    ira.optionThreeCalculator();
+    double mgKgHr,
+           wKg,
+           mgMl;
+    
+    mgKgHr = 0.6;
+    wKg = 70;
+    mgMl = 1;
+    ira.optionThreeCalculator(mgKgHr, wKg, mgMl);
 }
 
 void optionFourHandler(Ira ira)
 {
-    ira.optionFourCalculator();
+    double uPerHr,
+           uPerMl;
+
+    uPerHr = 1000;
+    uPerMl = 25;
+    ira.optionFourCalculator(uPerHr, uPerMl);
 }
 
 void optionFiveHandler()

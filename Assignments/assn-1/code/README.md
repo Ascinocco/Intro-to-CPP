@@ -1,3 +1,6 @@
+# Author
+- Anthony Scinocco 200271982
+
 # Thoughts for next time
 
 - Standardize exits

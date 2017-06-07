@@ -50,43 +50,45 @@ int menu()
 
 void optionOneHandler(Ira ira)
 {
-    double MLPerHour,
-           dropsPerML; 
-    // get user input
-
-    MLPerHour = 150;
-    dropsPerML = 15;
-
-    // pass to calculator
+    double MLPerHour, dropsPerML; 
+    cout << "Enter the following values: " << endl;
+    cout << "mL/Hr: " << endl;
+    cin >> MLPerHour;
+    cout >> "Drops/mL: " << endl;
+    cin >> dropsPerML;
     ira.optionOneCalculator(MLPerHour, dropsPerML);
 }
 
 void optionTwoHandler(Ira ira)
 {
     double hrs;
-    hrs = 8;
+    cout << "Enter the following values: " << endl;
+    cout << "Hours: " << endl;
+    cin >> hrs;
     ira.optionTwoCalculator(hrs);
 }
 
 void optionThreeHandler(Ira ira)
 {
-    double mgKgHr,
-           wKg,
-           mgMl;
-    
-    mgKgHr = 0.6;
-    wKg = 70;
-    mgMl = 1;
+    double mgKgHr, wKg, mgMl;
+    cout << "Enter the following values: " << endl;
+    cout << "mg/kg/hr: " << endl;
+    cin >> mgKgHr;
+    cout << "Weight in KG: " << endl;
+    cin >> wKg;
+    cout << "mg/mL: " << endl;
+    cin >> mgMl;
     ira.optionThreeCalculator(mgKgHr, wKg, mgMl);
 }
 
 void optionFourHandler(Ira ira)
 {
-    double uPerHr,
-           uPerMl;
-
-    uPerHr = 1000;
-    uPerMl = 25;
+    double uPerHr, uPerMl;
+    cout << "Enter the following values: " << endl;
+    cout << "Units/Hr: " << endl;
+    cin >> uPerHr;
+    cout << "Units/mL: " << endl;
+    cin uPerMl;
     ira.optionFourCalculator(uPerHr, uPerMl);
 }
 

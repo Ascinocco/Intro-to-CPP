@@ -44,11 +44,8 @@ class FileOpenController {
                     myFile.close();
                 }
 
-                myFile.open("2014-Barrie-Oro-Daily.csv");
-                
-                cout << fileName.c_str() << endl;
-                cout << fileName << endl;
-                cout << myFile << endl; 
+                string tempName = "./Data/" + fileName;
+                myFile.open(tempName.c_str());
 
                 if (myFile.is_open()) {
                     cout << "File opened." << endl;

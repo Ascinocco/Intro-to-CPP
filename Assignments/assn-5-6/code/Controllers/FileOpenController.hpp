@@ -79,7 +79,14 @@ class FileOpenController {
                 lineCount++;
 
                 if (lineCount == 6 && afterSix == false) {
-                    cout << string(value, 1, value.length() - 2) << endl;
+                    string temp = string(value, 1, value.length() - 2);
+                    
+                    temp.erase(
+                        remove( temp.begin(), temp.end(), '\"' ), temp.end()
+                    );
+
+                    cout << temp << endl;
+
                     lineCount = 0;
                     afterSix = true;
                 }

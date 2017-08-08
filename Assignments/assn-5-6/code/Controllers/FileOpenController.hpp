@@ -1,9 +1,19 @@
 class FileOpenController {
     public:
         string fileName;
+        ofstream myFile;
 
         FileOpenController() {
-            takeFileName();
+            takeFileName();            
+            myFile.open("2014-Barrie-Oro-Daily.csv");
+
+            if (myFile.is_open()) {
+                cout << "It's fucking open" << endl;
+                myFile.close();
+                exit(1);
+            } else  {
+                cout << "Go fuck yourself" << endl;
+            }
         }
 
         void takeFileName () {

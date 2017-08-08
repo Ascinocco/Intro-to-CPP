@@ -44,7 +44,6 @@ void menu ()
                 quit = true;
             } else {
                 cout << "Invalid Option. Try again." << endl;
-                break;
             }
 
         } catch (const exception& ex) {

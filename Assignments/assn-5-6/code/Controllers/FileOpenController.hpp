@@ -2,6 +2,7 @@
 // TODO: allow for files to be outside of working dir.
 class FileOpenController {
     public:
+        vector<string> maxTempWeatherData;
         string fileName;
         ifstream myFile;
         FileOpenController() {
@@ -15,6 +16,8 @@ class FileOpenController {
                     fileFound = openFile();
                 }
             }
+
+            // readFile();
         }
 
         bool takeFileName () {
@@ -41,8 +44,11 @@ class FileOpenController {
                     myFile.close();
                 }
 
-                myFile.open(fileName.c_str());
+                myFile.open("2014-Barrie-Oro-Daily.csv");
+                
+                cout << fileName.c_str() << endl;
                 cout << fileName << endl;
+                cout << myFile << endl; 
 
                 if (myFile.is_open()) {
                     cout << "File opened." << endl;
@@ -57,5 +63,16 @@ class FileOpenController {
             }
 
             return fileFound;
+        }
+
+        void closeFile () {
+            cout << "Closing file..." << endl;
+            myFile.close();
+        }
+
+        void readFile () {
+            while (myFile.good()) {
+                cout << (char) myFile.get();
+            }
         }
 };

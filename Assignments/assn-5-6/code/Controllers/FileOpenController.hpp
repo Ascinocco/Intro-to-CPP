@@ -30,6 +30,9 @@ class FileOpenController {
                 cout << "Month: " + to_string(monthHolder) + "'s average: " + to_string(eachMonthsAvg[i]) << endl;
             }
             cout << "--------------------------------------------------" << endl;
+
+            // put it in a temp csv file
+            outputToTempCSV();
         }
 
         bool takeFileName () {
@@ -223,5 +226,17 @@ class FileOpenController {
         float calculateAvg (vector<float> v) {
             float avg = accumulate(v.begin(), v.end(), (double) 0) / v.size();
             return avg;
+        }
+
+        void outputToTempCSV () {
+            // make it painfully obvious that this is a temporary file containing the average and append the original file name to it
+            string tempFileName = "./Data/TEMP-AVG-" + fileName;
+            ofstream tempFile;
+            tempFile.open(tempFileName.c_str());
+            for (int i = 0; i < eachMonthsAvg.size(); i++) {
+                int monthHolder = i + 1;
+                tempFile << "\"" + to_string(monthHolder) + "\",\"" + to_string(eachMonthsAvg[i]) + "\"," << endl;
+            }
+            tempFile.close();
         }
 };

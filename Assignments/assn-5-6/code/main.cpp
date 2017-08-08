@@ -1,29 +1,24 @@
 #include "./loader.hpp"
 
 // prints my name out to the screen
-void printName ()
-{
+void printName () {
     cout << "Hi Anthony Scinocco (200271982)" << endl;
 }
 
-void goodBye ()
-{
+void goodBye () {
     cout << "GoodBye!" << endl;
 }
 
-void openFileToProcess ()
-{
+void openFileToProcess () {
     FileOpenController fileOpener;
 }
 
-void saveTheClimateData ()
-{
+void saveTheClimateData () {
     cout << "Case two running!" << endl;
 }
 
 // runs menu system
-void menu ()
-{
+void menu () {
     char choice = 'z';
     bool quit = false;
 
@@ -53,8 +48,7 @@ void menu ()
 }
 
 // entry point into my application
-int main ()
-{
+int main () {
     printName();
     menu();
     goodBye();

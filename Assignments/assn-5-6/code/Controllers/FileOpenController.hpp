@@ -1,31 +1,60 @@
+// NOTE: don't forget to close all files
 class FileOpenController {
     public:
         string fileName;
-        ofstream myFile;
-
+        ifstream myFile;
         FileOpenController() {
-            takeFileName();            
-            myFile.open("2014-Barrie-Oro-Daily.csv");
+            bool fileFound = false;
+            bool validName = false;
 
-            if (myFile.is_open()) {
-                cout << "It's open" << endl;
-                myFile.close();
-                exit(0);
-            } else  {
-                cout << "Nope" << endl;
+            while (!fileFound) {
+                validName = takeFileName();
+
+                if (validName) {
+                    fileFound = openFile();
+                }
             }
         }
 
-        void takeFileName () {
+        bool takeFileName () {
+            bool validName = false;
             string myFileName = "";
             cout << "What is the name of the file you would like to open: " << endl;
 
             try {
                 cin >> myFileName;
+                validName = true;
                 fileName = myFileName;
             } catch (const exception& ex) {
                 cout << "Bad input. Try again." << endl;
-                takeFileName();
+                validName = false;
             }
+
+            return validName;
+        }
+
+        bool openFile () {
+            bool fileFound = false;
+            try {
+                if (myFile.is_open()) {
+                    myFile.close();
+                }
+
+                myFile.open(fileName.c_str());
+                cout << fileName << endl;
+
+                if (myFile.is_open()) {
+                    cout << "File opened." << endl;
+                    fileFound = true;
+                } else {
+                    cout << "File not found." << endl;
+                    fileFound = false;
+                }
+            } catch (const exception& ex) {
+                cout << "Error occured opening file. Try again." << endl;
+                fileFound = false;
+            }
+
+            return fileFound;
         }
 };

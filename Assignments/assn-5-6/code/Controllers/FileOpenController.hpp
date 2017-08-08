@@ -2,7 +2,8 @@
 // TODO: allow for files to be outside of working dir.
 class FileOpenController {
     public:
-        vector<string> maxTempWeatherData;
+        vector<float> maxTempWeatherData;
+        vector<string> months;
         string fileName;
         ifstream myFile;
         FileOpenController() {
@@ -17,7 +18,8 @@ class FileOpenController {
                 }
             }
 
-            readFile();
+            parseAndStoreMaxTempData(); // process weather data
+            parseAndStoreMonths(); // process the months the weather occured in
         }
 
         bool takeFileName () {
@@ -67,8 +69,7 @@ class FileOpenController {
             myFile.close();
         }
 
-        // this is so upsetting
-        void readFile () {
+        void parseAndStoreMaxTempData () {
 
             int lineCount = 0;
             bool afterSix = false;
@@ -85,7 +86,10 @@ class FileOpenController {
                         remove( temp.begin(), temp.end(), '\"' ), temp.end()
                     );
 
-                    cout << temp << endl;
+                    if (temp.length() > 0) {
+                        float tempAsFloat = ::atof(temp.c_str());
+                        maxTempWeatherData.push_back(tempAsFloat);
+                    }
 
                     lineCount = 0;
                     afterSix = true;
@@ -96,34 +100,40 @@ class FileOpenController {
                     afterSix = false;
                 }
             }
+        }
 
+        void parseAndStoreMonths () {
+            // int lineCount = 0;
+            // bool afterThree = false;
+            string value;
 
-            // int commaCount = 0;
-            // int captureCount = 0;
-            // string theDataIWant = "";
-
-            // while (myFile.good()) {
-            //     char currValue = (char) myFile.get();
+            while (myFile.good()) {
+                getline(myFile, value, ',');
+                cout << value << endl;
+            }
                 
-            //     if (currValue == ',') {
-            //         commaCount++;
-            //     }
+            cout << string(value, 1, value.length() - 2) << endl;
 
-            //     if (commaCount == 5 && captureCount < 5) {
-            //         // grab the data between the  "" and add it to csv
-                    
-            //         theDataIWant += currValue;
-            //         captureCount++;
-            //     }
+            cout << myFile.good() << endl;
 
-            //     if (commaCount >= 5 && captureCount >= 5) {
-            //         // move on
-            //         commaCount = 0;
-            //         captureCount = 0;
-            //         maxTempWeatherData.push_back(theDataIWant);
-            //         cout << theDataIWant << endl;
-            //         theDataIWant = "";
-            //     }
-            // }
+            while (myFile.good()) {
+                getline(myFile, value, ',');
+                lineCount++;
+                
+                cout << string(value, 1, value.length() - 2) << endl;
+
+                if (lineCount == 3 && afterThree == false) {
+                    string temp = string(value, 1, value.length() - 2);
+                    cout << temp << endl;
+
+                    lineCount = 0;
+                    afterThree = true;
+                }
+
+                if (lineCount == 23 && afterThree == true) {
+                    lineCount = 0;
+                    afterThree = false;
+                }
+            }
         }
 };

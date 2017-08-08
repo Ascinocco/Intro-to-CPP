@@ -6,13 +6,28 @@ void printName ()
     cout << "Hi Anthony Scinocco (200271982)" << endl;
 }
 
-// runs menu system
-int menu ()
+void goodBye ()
 {
-    int choice = 0;
-    bool keepGoing = true;
+    cout << "GoodBye!" << endl;
+}
 
-    while (keepGoing) {
+void openFileToProcess ()
+{
+    FileOpenController fileOpener;
+}
+
+void saveTheClimateData ()
+{
+    cout << "Case two running!" << endl;
+}
+
+// runs menu system
+void menu ()
+{
+    char choice = 'z';
+    bool quit = false;
+
+    while (!quit) {
         cout << "Please make a selection from the following:" << endl;
         cout << "1.\tOpen a Climate File to Process" << endl;
         cout << "2.\tSave the Climate Data" << endl;
@@ -20,53 +35,29 @@ int menu ()
 
         try {
             cin >> choice;
-
-            if (choice < 1 || choice > 3) {
-                cout << "Invalid option. Try again." << endl;
-                choice = 0;
-                keepGoing = true;
+            
+            if (choice == '1') {
+                openFileToProcess();
+            } else if (choice == '2') {
+                saveTheClimateData();
+            } else if (choice == '3') {
+                quit = true;
             } else {
-                keepGoing = false;
+                cout << "Invalid Option. Try again." << endl;
+                break;
             }
 
         } catch (const exception& ex) {
-            cout << "Bad Selection. Try again." << endl;
-            choice = 0;
-            keepGoing = true;
+            cout << "That is not a valid option. Try again." << endl;
         }
-    }
-
-    return choice;
-}
-
-// takes the users choice and runs the appropraite function
-bool selectionDispatch(int choice)
-{
-    if (choice == 1) {
-        FileOpenController fileOpener;
-    }
-
-    if (choice == 2) {
-    
-    }
-
-    if (choice == 3) {
-        return false;
-    }
-   
-    return true;
+   }
 }
 
 // entry point into my application
 int main ()
 {
     printName();
-    int choice = menu();
-    bool keepGoing = selectionDispatch(choice);
-
-    if (keepGoing) {
-        main();
-    }
-
+    menu();
+    goodBye();
     return EXIT_SUCCESS;
 }

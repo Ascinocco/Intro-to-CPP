@@ -15,7 +15,8 @@ void openFileToProcess () {
 }
 
 void saveTheClimateData () {
-    cout << "Case two running!" << endl;
+    FileSaveController fileSaver;
+    fileSaver.closeFile();
 }
 
 // runs menu system
@@ -26,12 +27,12 @@ void menu () {
     while (!quit) {
         cout << "Please make a selection from the following:" << endl;
         cout << "1.\tOpen a Climate File to Process" << endl;
-        cout << "2.\tSave the Climate Data" << endl;
+        cout << "2.\tSave the Climate Data (Only the last file you processed. Temp files are always available in the data dir.)" << endl;
         cout << "3.\tExit" << endl;
 
         try {
             cin >> choice;
-            
+
             if (choice == '1') {
                 openFileToProcess();
             } else if (choice == '2') {

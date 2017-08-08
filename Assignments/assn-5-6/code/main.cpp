@@ -11,6 +11,7 @@ void goodBye () {
 
 void openFileToProcess () {
     FileOpenController fileOpener;
+    fileOpener.closeFile(); // TODO: might need to remove this later on
 }
 
 void saveTheClimateData () {

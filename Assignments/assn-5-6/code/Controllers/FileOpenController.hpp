@@ -17,7 +17,7 @@ class FileOpenController {
                 }
             }
 
-            // readFile();
+            readFile();
         }
 
         bool takeFileName () {
@@ -67,9 +67,56 @@ class FileOpenController {
             myFile.close();
         }
 
+        // this is so upsetting
         void readFile () {
+
+            int lineCount = 0;
+            bool afterSix = false;
+            string value;
+
             while (myFile.good()) {
-                cout << (char) myFile.get();
+                getline(myFile, value, ',');
+                lineCount++;
+
+                if (lineCount == 6 && afterSix == false) {
+                    cout << string(value, 1, value.length() - 2) << endl;
+                    lineCount = 0;
+                    afterSix = true;
+                }
+
+                if (lineCount == 20 && afterSix == true) {
+                    lineCount = 0;
+                    afterSix = false;
+                }
             }
+
+
+            // int commaCount = 0;
+            // int captureCount = 0;
+            // string theDataIWant = "";
+
+            // while (myFile.good()) {
+            //     char currValue = (char) myFile.get();
+                
+            //     if (currValue == ',') {
+            //         commaCount++;
+            //     }
+
+            //     if (commaCount == 5 && captureCount < 5) {
+            //         // grab the data between the  "" and add it to csv
+                    
+            //         theDataIWant += currValue;
+            //         captureCount++;
+            //     }
+
+            //     if (commaCount >= 5 && captureCount >= 5) {
+            //         // move on
+            //         commaCount = 0;
+            //         captureCount = 0;
+            //         maxTempWeatherData.push_back(theDataIWant);
+            //         cout << theDataIWant << endl;
+            //         theDataIWant = "";
+            //     }
+            // }
         }
 };

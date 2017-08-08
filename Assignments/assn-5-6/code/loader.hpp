@@ -6,7 +6,14 @@
 #include <iostream>
 #include <stdlib.h>
 #include <iostream>
-#include "./helpers.hpp"
 
 using namespace std;
 using std::vector;
+
+// helpers
+#include "./helpers.hpp"
+
+// models
+
+// controllers
+#include "./Controllers/FileOpenController.hpp"

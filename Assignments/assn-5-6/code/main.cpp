@@ -42,11 +42,18 @@ int menu ()
 // takes the users choice and runs the appropraite function
 bool selectionDispatch(int choice)
 {
+    if (choice == 1) {
+        FileOpenController fileOpener;
+    }
+
+    if (choice == 2) {
+    
+    }
+
     if (choice == 3) {
         return false;
     }
-    
-    cout << "Dispatching" << endl;
+   
     return true;
 }
 
@@ -61,6 +68,5 @@ int main ()
         main();
     }
 
-    cout << "GoodBye!! :)" << endl;
     return EXIT_SUCCESS;
 }

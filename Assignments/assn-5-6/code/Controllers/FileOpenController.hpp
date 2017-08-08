@@ -2,6 +2,7 @@
 // TODO: allow for files to be outside of working dir.
 class FileOpenController {
     public:
+        vector<float> eachMonthsAvg;
         vector<float> maxTempWeatherData;
         vector<string> months;
         string fileName;
@@ -20,7 +21,15 @@ class FileOpenController {
             // process weather data
             parseAndStoreMaxTempData();
             parseAndStoreMonths();
-            dispayData();
+            // dispayData();
+            calculateMonthlyAverages();
+
+            cout << "------------ Averages for each month ------------" << endl;
+            for (int i = 0; i < eachMonthsAvg.size(); i++) {
+                int monthHolder = i + 1;
+                cout << "Month: " + to_string(monthHolder) + "'s average: " + to_string(eachMonthsAvg[i]) << endl;
+            }
+            cout << "--------------------------------------------------" << endl;
         }
 
         bool takeFileName () {
@@ -139,6 +148,8 @@ class FileOpenController {
             }
         }
 
+        // helpful for debugging
+        // TODO: remove when do
         void dispayData () {
             int size = 0;
 
@@ -154,8 +165,63 @@ class FileOpenController {
             cout << months.size() << endl;
             cout << maxTempWeatherData.size() << endl;
 
-            // for (int i = 0; i < maxTempWeatherData.size(); i++) {
-            //     cout << " Temp: " + std::to_string(maxTempWeatherData[i]) << endl;
-            // }
+            for (int i = 0; i < maxTempWeatherData.size(); i++) {
+                cout << "Month: " + months[i] + " Temp: " + std::to_string(maxTempWeatherData[i]) << endl;
+            }
+        }
+
+        // this is probably the most upsetting function of all the functions in this project
+        // I was rushing so I made things more static than I'd like to
+        void calculateMonthlyAverages () {
+            vector<float> jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec;
+
+            // a little bit of blunt force trauma
+            for (int i = 0; i < months.size(); i++) {
+                if (months[i] == "01") {
+                    jan.push_back(maxTempWeatherData[i]);
+                } else if (months[i] == "02") {
+                    feb.push_back(maxTempWeatherData[i]);
+                } else if (months[i] == "03") {
+                    mar.push_back(maxTempWeatherData[i]);
+                } else if (months[i] == "04") {
+                    apr.push_back(maxTempWeatherData[i]);
+                } else if (months[i] == "05") {
+                    may.push_back(maxTempWeatherData[i]);
+                } else if (months[i] == "06") {
+                    jun.push_back(maxTempWeatherData[i]);
+                } else if (months[i] == "07") {
+                    jul.push_back(maxTempWeatherData[i]);
+                } else if (months[i] == "08") {
+                    aug.push_back(maxTempWeatherData[i]);
+                } else if (months[i] == "09") {
+                    sep.push_back(maxTempWeatherData[i]);
+                } else if (months[i] == "10") {
+                    oct.push_back(maxTempWeatherData[i]);
+                } else if (months[i] == "11") {
+                    nov.push_back(maxTempWeatherData[i]);
+                } else if (months[i] == "12") {
+                    dec.push_back(maxTempWeatherData[i]);
+                }
+            }
+
+            // store each months average in a vector
+            eachMonthsAvg.push_back(calculateAvg(jan));
+            eachMonthsAvg.push_back(calculateAvg(feb));
+            eachMonthsAvg.push_back(calculateAvg(mar));
+            eachMonthsAvg.push_back(calculateAvg(apr));
+            eachMonthsAvg.push_back(calculateAvg(may));
+            eachMonthsAvg.push_back(calculateAvg(jun));
+            eachMonthsAvg.push_back(calculateAvg(jul));
+            eachMonthsAvg.push_back(calculateAvg(aug));
+            eachMonthsAvg.push_back(calculateAvg(sep));
+            eachMonthsAvg.push_back(calculateAvg(oct));
+            eachMonthsAvg.push_back(calculateAvg(nov));
+            eachMonthsAvg.push_back(calculateAvg(dec));
+        }
+
+        // this does the actual calculation
+        float calculateAvg (vector<float> v) {
+            float avg = accumulate(v.begin(), v.end(), (double) 0) / v.size();
+            return avg;
         }
 };

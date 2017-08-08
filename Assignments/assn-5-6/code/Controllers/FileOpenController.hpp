@@ -1,4 +1,5 @@
 // NOTE: don't forget to close all files
+// TODO: allow for files to be outside of working dir.
 class FileOpenController {
     public:
         string fileName;

@@ -17,8 +17,10 @@ class FileOpenController {
                     fileFound = openFile();
                 }
             }
-
-            parseAndStoreMaxTempData(); // process weather data
+            // process weather data
+            parseAndStoreMaxTempData();
+            parseAndStoreMonths();
+            dispayData();
         }
 
         bool takeFileName () {
@@ -69,11 +71,6 @@ class FileOpenController {
         }
 
         void parseAndStoreMaxTempData () {
-
-            int lcThree = 0;
-            bool afterThree = false;
-            string valueThree;
-
             int lineCount = 0;
             bool afterSix = false;
             string value;
@@ -81,11 +78,10 @@ class FileOpenController {
             while (myFile.good()) {
                 getline(myFile, value, ',');
                 lineCount++;
-                lcThree++;
 
                 if (lineCount == 6 && afterSix == false) {
                     string temp = string(value, 1, value.length() - 2);
-                    
+
                     temp.erase(
                         remove( temp.begin(), temp.end(), '\"' ), temp.end()
                     );
@@ -93,6 +89,8 @@ class FileOpenController {
                     if (temp.length() > 0) {
                         float tempAsFloat = ::atof(temp.c_str());
                         maxTempWeatherData.push_back(tempAsFloat);
+                    } else {
+                        maxTempWeatherData.push_back(0.0);
                     }
 
                     lineCount = 0;
@@ -103,22 +101,35 @@ class FileOpenController {
                     lineCount = 0;
                     afterSix = false;
                 }
+            }
+        }
 
+        // store months in a vector
+        void parseAndStoreMonths() {
+            closeFile();
+            openFile();
+
+            int lcThree = 0;
+            bool afterThree = false;
+            string valueThree;
+
+            while (myFile.good()) {
+                getline(myFile, valueThree, ',');
+                lcThree++;
                 // for months
                 if (lcThree == 3 && afterThree == false) {
                     string tempThree = string(valueThree, 1, valueThree.length() - 2);
-                    
+
                     tempThree.erase(
                         remove( tempThree.begin(), tempThree.end(), '\"' ), tempThree.end()
                     );
 
                     if (tempThree.length() > 0) {
-                        cout << tempThree << endl;
                         months.push_back(tempThree);
                     }
 
                     lcThree = 0;
-                    afterThree = false;
+                    afterThree = true;
                 }
 
                 if (lcThree == 23 && afterThree == true) {
@@ -126,5 +137,25 @@ class FileOpenController {
                     afterThree = false;
                 }
             }
+        }
+
+        void dispayData () {
+            int size = 0;
+
+            if (months.size() != maxTempWeatherData.size()) {
+                cout << "Data mismatch, results will not be complete." << endl;
+                if (months.size() > maxTempWeatherData.size()) {
+                    size = maxTempWeatherData.size();
+                } else {
+                    size = months.size();
+                }
+            }
+
+            cout << months.size() << endl;
+            cout << maxTempWeatherData.size() << endl;
+
+            // for (int i = 0; i < maxTempWeatherData.size(); i++) {
+            //     cout << " Temp: " + std::to_string(maxTempWeatherData[i]) << endl;
+            // }
         }
 };

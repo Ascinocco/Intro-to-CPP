@@ -19,7 +19,6 @@ class FileOpenController {
             }
 
             parseAndStoreMaxTempData(); // process weather data
-            parseAndStoreMonths(); // process the months the weather occured in
         }
 
         bool takeFileName () {
@@ -71,6 +70,10 @@ class FileOpenController {
 
         void parseAndStoreMaxTempData () {
 
+            int lcThree = 0;
+            bool afterThree = false;
+            string valueThree;
+
             int lineCount = 0;
             bool afterSix = false;
             string value;
@@ -78,6 +81,7 @@ class FileOpenController {
             while (myFile.good()) {
                 getline(myFile, value, ',');
                 lineCount++;
+                lcThree++;
 
                 if (lineCount == 6 && afterSix == false) {
                     string temp = string(value, 1, value.length() - 2);
@@ -99,39 +103,26 @@ class FileOpenController {
                     lineCount = 0;
                     afterSix = false;
                 }
-            }
-        }
 
-        void parseAndStoreMonths () {
-            // int lineCount = 0;
-            // bool afterThree = false;
-            string value;
+                // for months
+                if (lcThree == 3 && afterThree == false) {
+                    string tempThree = string(valueThree, 1, valueThree.length() - 2);
+                    
+                    tempThree.erase(
+                        remove( tempThree.begin(), tempThree.end(), '\"' ), tempThree.end()
+                    );
 
-            while (myFile.good()) {
-                getline(myFile, value, ',');
-                cout << value << endl;
-            }
-                
-            cout << string(value, 1, value.length() - 2) << endl;
+                    if (tempThree.length() > 0) {
+                        cout << tempThree << endl;
+                        months.push_back(tempThree);
+                    }
 
-            cout << myFile.good() << endl;
-
-            while (myFile.good()) {
-                getline(myFile, value, ',');
-                lineCount++;
-                
-                cout << string(value, 1, value.length() - 2) << endl;
-
-                if (lineCount == 3 && afterThree == false) {
-                    string temp = string(value, 1, value.length() - 2);
-                    cout << temp << endl;
-
-                    lineCount = 0;
-                    afterThree = true;
+                    lcThree = 0;
+                    afterThree = false;
                 }
 
-                if (lineCount == 23 && afterThree == true) {
-                    lineCount = 0;
+                if (lcThree == 23 && afterThree == true) {
+                    lcThree = 0;
                     afterThree = false;
                 }
             }

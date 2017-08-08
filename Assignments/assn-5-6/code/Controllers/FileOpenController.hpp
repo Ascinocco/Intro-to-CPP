@@ -8,11 +8,11 @@ class FileOpenController {
             myFile.open("2014-Barrie-Oro-Daily.csv");
 
             if (myFile.is_open()) {
-                cout << "It's fucking open" << endl;
+                cout << "It's open" << endl;
                 myFile.close();
-                exit(1);
+                exit(0);
             } else  {
-                cout << "Go fuck yourself" << endl;
+                cout << "Nope" << endl;
             }
         }
 

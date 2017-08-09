@@ -14,10 +14,12 @@
 #include <algorithm> //for std::copy
 #include <iterator>
 #include <stdexcept>
+// #include "<stdio>"
 
 using namespace std;
 using std::vector;
 using std::accumulate;
+using std::rename;
 
 // helpers
 #include "./helpers.hpp"

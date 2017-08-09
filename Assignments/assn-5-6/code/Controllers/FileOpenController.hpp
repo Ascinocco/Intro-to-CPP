@@ -3,6 +3,7 @@
 class FileOpenController {
     public:
         vector<float> eachMonthsAvg;
+        vector<float> eachMonthAvgCopy;
         vector<float> maxTempWeatherData;
         vector<string> months;
         string fileName;
@@ -32,6 +33,7 @@ class FileOpenController {
             }
             cout << "--------------------------------------------------" << endl;
 
+            eachMonthAvgCopy = eachMonthsAvg;
             // put it in a temp csv file
             outputToTempCSV();
         }
@@ -229,9 +231,15 @@ class FileOpenController {
             return avg;
         }
 
-        void outputToTempCSV () {
+        void outputToTempCSV (string newName = "") {
+            string tempFileName;
+            if (!newName.empty()) {
+                tempFileName = "./Data/" + newName;
+            } else {
+                tempFileName = "./Data/TEMP-AVG-" + fileName;
+            }
+
             // make it painfully obvious that this is a temporary file containing the average and append the original file name to it
-            string tempFileName = "./Data/TEMP-AVG-" + fileName;
             currTempFileName = tempFileName;
             ofstream tempFile;
             tempFile.open(tempFileName.c_str());
@@ -242,7 +250,23 @@ class FileOpenController {
             tempFile.close();
         }
 
-        void saveAvgCSVData() {
-            cout << "Holy fuck it runs" << endl;
+        /**
+         * Instead of rewriting the file (which causes all the seg faults in the world)
+         * I'm just going to rename the temp file based on user input and give that to them!
+         */
+        void saveAvgCSVData(string oldName, string oldTempName) {
+
+            cout << oldName << endl;
+            cout << oldTempName << endl;
+
+            // string name;
+            // string filePath = "./Data/Output/";
+            // string fileToRename = "./Data/TEMP-AVG-" + oldTempName;
+
+            // cout << "What is the name of the file you would like to save: " << endl;
+            // cin >> name;
+
+            // filePath += name;
+            // rename(fileToRename.c_str(), filePath.c_str());
         }
 };

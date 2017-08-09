@@ -1,6 +1,7 @@
 #include "./Utilities/loader.hpp"
 
 // pointer to the file opener object
+// finally see what pointers can be useful for.
 FileOpenController *fop;
 
 // prints my name out to the screen
@@ -14,12 +15,12 @@ void goodBye () {
 
 void openFileToProcess () {
     FileOpenController fileOpener;
-    fileOpener.closeFile(); // TODO: might need to remove this later on
+    // fileOpener.closeFile(); // TODO: might need to remove this later on
     fop = & fileOpener;
 }
 
 void saveTheClimateData () {
-    fop->saveAvgCSVData();
+    fop->saveAvgCSVData(fop->fileName, fop->currTempFileName);
 }
 
 // runs menu system

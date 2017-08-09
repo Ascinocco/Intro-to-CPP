@@ -6,6 +6,7 @@ class FileOpenController {
         vector<float> maxTempWeatherData;
         vector<string> months;
         string fileName;
+        string currTempFileName;
         ifstream myFile;
         FileOpenController() {
             bool fileFound = false;
@@ -231,6 +232,7 @@ class FileOpenController {
         void outputToTempCSV () {
             // make it painfully obvious that this is a temporary file containing the average and append the original file name to it
             string tempFileName = "./Data/TEMP-AVG-" + fileName;
+            currTempFileName = tempFileName;
             ofstream tempFile;
             tempFile.open(tempFileName.c_str());
             for (int i = 0; i < eachMonthsAvg.size(); i++) {

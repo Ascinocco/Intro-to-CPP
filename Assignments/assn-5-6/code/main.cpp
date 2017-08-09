@@ -1,5 +1,8 @@
 #include "./Utilities/loader.hpp"
 
+string currFileName = "";
+string currTempFileName = "";
+
 // prints my name out to the screen
 void printName () {
     cout << "Hi Anthony Scinocco (200271982)" << endl;
@@ -11,7 +14,9 @@ void goodBye () {
 
 void openFileToProcess () {
     FileOpenController fileOpener;
-    fileOpener.closeFile(); // TODO: might need to remove this later on
+    currFileName = fileOpener.fileName;
+    currTempFileName = fileOpener.currTempFileName;
+    fileOpener.closeFile();
 }
 
 void saveTheClimateData () {

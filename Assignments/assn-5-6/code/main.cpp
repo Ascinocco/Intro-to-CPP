@@ -20,6 +20,7 @@ void openFileToProcess () {
 }
 
 void saveTheClimateData () {
+    // sending in filenames does not resolve my issue.
     fop->saveAvgCSVData(fop->fileName, fop->currTempFileName);
 }
 
@@ -55,6 +56,7 @@ void menu () {
 
 // entry point into my application
 int main () {
+    cout << "All data files exsist in the Data directory!" << endl;
     printName();
     menu();
     goodBye();

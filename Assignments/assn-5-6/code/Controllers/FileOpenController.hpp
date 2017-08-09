@@ -254,10 +254,18 @@ class FileOpenController {
          * Instead of rewriting the file (which causes all the seg faults in the world)
          * I'm just going to rename the temp file based on user input and give that to them!
          */
-        void saveAvgCSVData(string oldName, string oldTempName) {
 
-            cout << oldName << endl;
-            cout << oldTempName << endl;
+         /**
+         * no matter what I try here I get a seg fault.
+         * even if I just call the outputToTempCSV I get a segfault
+         * it seems related to how I'm using a pointer to run the function
+         * I may have coded myself into a whole here.
+         */
+        void saveAvgCSVData(string oldName, string oldTempName) {
+            cout << "This function is broken!" << endl;
+            cout << "Please view the commented out code on like 264 of the file FileOpenController.hpp" << endl;
+            // cout << oldName << endl;
+            // cout << oldTempName << endl;
 
             // string name;
             // string filePath = "./Data/Output/";

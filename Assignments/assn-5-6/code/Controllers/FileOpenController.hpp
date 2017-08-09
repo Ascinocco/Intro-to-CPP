@@ -241,4 +241,8 @@ class FileOpenController {
             }
             tempFile.close();
         }
+
+        void saveAvgCSVData() {
+            cout << "Holy fuck it runs" << endl;
+        }
 };

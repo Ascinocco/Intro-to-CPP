@@ -1,7 +1,7 @@
 #include "./Utilities/loader.hpp"
 
-string currFileName = "";
-string currTempFileName = "";
+// pointer to the file opener object
+FileOpenController *fop;
 
 // prints my name out to the screen
 void printName () {
@@ -14,14 +14,12 @@ void goodBye () {
 
 void openFileToProcess () {
     FileOpenController fileOpener;
-    currFileName = fileOpener.fileName;
-    currTempFileName = fileOpener.currTempFileName;
-    fileOpener.closeFile();
+    fileOpener.closeFile(); // TODO: might need to remove this later on
+    fop = & fileOpener;
 }
 
 void saveTheClimateData () {
-    FileSaveController fileSaver;
-    fileSaver.closeFile();
+    fop->saveAvgCSVData();
 }
 
 // runs menu system
